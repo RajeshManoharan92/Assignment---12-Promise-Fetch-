@@ -1,0 +1,30 @@
+document.querySelector("#Assignment").addEventListener('click', myFunction)
+
+function myFunction() {
+	var raj = new Promise((resolve, reject) => {
+
+		fetch("https://jsonplaceholder.typicode.com/users")
+			.then((res) => res.json())
+			.then((data) => resolve(data))
+		
+	})
+
+	var raj1 = new Promise((resolve, reject) => {
+
+		fetch("https://jsonplaceholder.typicode.com/posts")
+			.then((res) => res.json())
+			.then((data) => resolve(data))
+
+	})
+
+	Promise.all([raj, raj1])
+		.then((data) => {
+			var ul = document.querySelector("#tt")
+			var jj = data.forEach(element => element.forEach(element => {
+				let li = document.createElement("li")
+				li.innerText = element.id
+				ul.append(li)
+			}))
+		})
+		.catch(err => console.error(err))
+}
